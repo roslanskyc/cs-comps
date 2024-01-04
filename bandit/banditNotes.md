@@ -18,3 +18,9 @@ This is our first encounter with a directory! ```ls``` shows a directory called 
 Here's an interesting one - there's an *inhere* directory to move to, like last time, but now there are ten files inside, ranging from *-file00* to *-file09*. According to the website, the flag is stored in the only human-readable file. And sure, we could try opening each file in turn until we get one that looks like a flag, but how can we make it easier on ourselves?
 
 The command ```file [FILENAME]``` gives us file types. So maybe ```file *```? Turns out this gives an error, that we can't open "ile00" as it does not exist. As before, the dashed start gives us problems, so ```file ./*``` should (and does) work. It lists out all the files and their types, showing that *-file07* is ASCII text and everything else is data. Sure enough, opening *-file07* gives us the flag.
+
+## bandit5
+The ```find``` command comes to mind as a good candidate for this. I tried ```find . -size 1033c```, which looked throughout everything in *inhere* for a file that is 1033 bytes in size. Turns out, this was all I needed to get the right file, in *maybehere07*. As an extra check, I used ```ls -l``` to make sure that the right file was not executable.
+
+## bandit6
+Again, ```find``` will save us here. There's nothing in the home directory, so we will need to look further, starting from root. ```find / -user bandit7 -group bandit6 -size 33c``` searches from the root directory for files that match the given properties. Unfortunately, it also tries to see into a tons of files and gets permission denied errors for almost all of them. We can ignore the error messages by adding ```2>/dev/null```, so ```find / -user bandit7 -group bandit6 -size 33c 2>/dev/null``` gives the filepath to the flag we want.
