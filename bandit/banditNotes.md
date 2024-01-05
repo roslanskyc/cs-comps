@@ -24,3 +24,20 @@ The ```find``` command comes to mind as a good candidate for this. I tried ```fi
 
 ## bandit6
 Again, ```find``` will save us here. There's nothing in the home directory, so we will need to look further, starting from root. ```find / -user bandit7 -group bandit6 -size 33c``` searches from the root directory for files that match the given properties. Unfortunately, it also tries to see into a tons of files and gets permission denied errors for almost all of them. We can ignore the error messages by adding ```2>/dev/null```, so ```find / -user bandit7 -group bandit6 -size 33c 2>/dev/null``` gives the filepath to the flag we want.
+
+## bandit7
+*data.txt* is right there, and the flag is next to the word "millionth". I guess you could open the file in notepad and CTRL+F to find it, but we use ```grep``` instead. ```grep "millionth" data.txt``` prints out the line with "millionth" on it, which includes the flag.
+
+## bandit8
+Here, we need to find the only unique line in *data.txt*. I was tempted to use ```uniq``` here, but it only removes duplicate lines that are next to each other - then we just need to sort first. ```sort data.txt | uniq -u``` does the trick here.
+
+## bandit9
+I got this, but I'm not proud of it...
+I just searched for several word characters in a row with ```grep "\w\w\w\w\w\w\w" data.txt```. I first tried to match "====", then I used the regex ```\w{5,}``` to be a little more efficient, but neither worked. This gave me a whole mess but highlighted the human-readable chunks, including one that followed a bunch of equals signs and happened to look like a flag.
+
+## bandit10
+```base64``` is a pretty handy command here, as ```base64 -d data.txt``` decodes the file and gets the flag.
+
+## bandit11
+```tr``` is great too - ```tr '[A-Z]' '[N-ZA-M]'``` shifts each character by 13 position. Unfortunately, it's case sensitive, so we need to chain - ```cat data.txt | tr '[A-Z]' '[N-ZA-M]' | tr '[a-z]' '[n-za-m]'``` decodes the file for us.
+
