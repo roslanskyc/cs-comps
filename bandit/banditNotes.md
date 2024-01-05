@@ -41,3 +41,11 @@ I just searched for several word characters in a row with ```grep "\w\w\w\w\w\w\
 ## bandit11
 ```tr``` is great too - ```tr '[A-Z]' '[N-ZA-M]'``` shifts each character by 13 position. Unfortunately, it's case sensitive, so we need to chain - ```cat data.txt | tr '[A-Z]' '[N-ZA-M]' | tr '[a-z]' '[n-za-m]'``` decodes the file for us.
 
+## bandit12
+Seemed scary at first, but turned out to mostly just be tedious. First step is reversing the hexdump with ```xxd -r data.txt > unhex```, putting the output in *unhex*. After that, it was a series of ```file *``` to see what the file type was, and using the corresponding command for extracting the compressed file, either a gzip, bzip2, or tar.
+
+## bandit13
+```ssh -p 2220 -i sshkey.private bandit14@localhost``` is all I needed to get into bandit14's account, from which I went and got the password.
+
+## bandit14
+```nc localhost 30000``` opened the connection to port 30000, and putting the current password in got me the next.
