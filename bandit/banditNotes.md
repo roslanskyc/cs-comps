@@ -49,3 +49,18 @@ Seemed scary at first, but turned out to mostly just be tedious. First step is r
 
 ## bandit14
 ```nc localhost 30000``` opened the connection to port 30000, and putting the current password in got me the next.
+
+## bandit15
+I just used the standard command for connecting over ssl - ```openssl s_client -connect localhost:30001```, and submitted the password.
+
+## bandit16
+For this one, I needed to look through a range of ports to find the right one, so I used ```nmap -sV -p31000-32000```, printing out the service info for each open port found. All but one of the open ports had a service running that was some form of echo, and the last one was unknown (31790), so I used that. ```openssl s_client -connect localhost:31790``` opened an ssl connection to this port, and submitting the current password gave me an RSA private key. The next step was to use this private key to ssh into bandit17, which I did by making a directory under /tmp and creating a file to store the key. When I first tried to ssh in, I got an error because the keyfile was exposed, so I removed read access for anyone else with ```chmod 400 private.key```. After this, ```ssh -p 2220 -i private.key bandit17@localhost``` was all I needed.
+
+## bandit17
+```diff passwords.new passwords.old``` showed the line in which the files are different, getting the right password.
+
+## bandit18
+Logging in the normal way, I'm disconnected immediately. Adding the ```-T``` flag to the initial ssh connection forces a terminal when I log in, so I can open the readme file and get the password.
+
+## bandit19
+```./bandit20-do cat /etc/bandit_pass/bandit20``` got the password
