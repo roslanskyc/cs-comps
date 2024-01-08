@@ -64,3 +64,6 @@ Logging in the normal way, I'm disconnected immediately. Adding the ```-T``` fla
 
 ## bandit19
 ```./bandit20-do cat /etc/bandit_pass/bandit20``` got the password
+
+## bandit20
+First, I started another instance of bash, logged in to bandit20, and set up a server at port 30123 with ```nc -l 30123```. Back in the first instance, I executed the binary with ```./suconnect 30123```, setting up a connection. On the other instance, I put in the current password, and got back the next one!
