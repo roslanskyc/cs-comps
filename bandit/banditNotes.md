@@ -67,3 +67,6 @@ Logging in the normal way, I'm disconnected immediately. Adding the ```-T``` fla
 
 ## bandit20
 First, I started another instance of bash, logged in to bandit20, and set up a server at port 30123 with ```nc -l 30123```. Back in the first instance, I executed the binary with ```./suconnect 30123```, setting up a connection. On the other instance, I put in the current password, and got back the next one!
+
+## bandit21
+Looking at ```/etc/cron.d/cronjob_bandit22```, it says that every minute, bandit22 executes the script ```/usr/bin/cronjob_bandit22.sh``` and discards the output. Luckily, this script is readable by us, and it makes a directory in tmp readable by anyone, then passes the contents of ```/etc/bandit_pass/bandit22``` to this directory. All I had to do was open the directory, and I got the password.
