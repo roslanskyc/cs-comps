@@ -23,4 +23,6 @@ On this one, I went to see the sourcecode - it was a pretty basic form that comp
 
 # natas7
 Clicking on the home button led me to ```index.php?page=home```, and the source code had a hint to the password, so I switched the URL to ```index.php?page=/etc/natas_webpass/natas8```. This actually gave me a lot of grief because I forgot the first slash :(
-    
+
+# natas8
+The sourcecode for this one gave some hints in PHP - when the site gets an input, it encodes it into base64, then reverses the string, and calls ```bin2hex()``` on it (which just converts a string into hexadecimal). The resulting string is compared against the encoded secret, which is stored in plaintext. After wrangling with a PHP installation for a bit, I was able to run a script that takes the encoded secret and decodes it - this can be seen in ```natasScripts/natas8.php```. The output for this can be submitted to get the password.
