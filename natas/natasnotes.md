@@ -31,3 +31,6 @@ The sourcecode for this one gave some hints in PHP - when the site gets an input
 We start with an input form to find words in a dictionary - a look at the source code shows that it takes in user input and sticks it in an executed command. This is a prime situation for a command-injection attack! 
 
 After a little digging into formats, I came up with ```none; ls -la #``` as an input, just to get a bearing on where I am. After peeking through the directory I'm in, it's parent, and /etc, I found the passwords and used ```none; cd /etc/natas_webpass; cat natas10; #``` to get the next one.
+
+## natas10 
+After some time trying to figure out how to do a command injection by executing multiple commands without ;, &, or |, I got a hint to think of other ways to modify ```grep```. Sure enough, ```. /etc/natas_webpass/natas11 #``` worked to search the natas11 file for any character.
