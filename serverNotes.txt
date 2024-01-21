@@ -1,0 +1,15 @@
+Here's how I set up basic auth on my VM!
+
+1. created .htpasswd file to store credentials with "sudo htpasswd -c /etc/apache2/.htpasswd admin"
+    - Added password for admin
+    - Any additions can be made with the above command, without -c
+2. Modified /etc/apache2/sites-enabled/000-default.conf
+    - sudo vi 000-default.conf
+    - Added the following tag:
+        <Directory "/var/www/html/server">
+                AuthType Basic
+                AuthName "Restricted Content"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
+        </Directory>
+    - The directory can be whatever, this will contain the restricted files
