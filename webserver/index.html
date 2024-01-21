@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h1>Log In Here!</h1>
-    <h2>Maybe...</h2>
-    <p><a href="#">About Us</a></p>
+    <div class="log-form">
+        <form action="login.php" method="post">
+            <h2>Log In Here!</h2>
+            <label>Username</label>
+            <input type="text" name="username" placeholder="Username" />
+            <label>Password</label>
+            <input type="password" name="pass" placeholder="Password" />
+            <button type="submit" class="button">Login</button>
+        </form>
+
+        <p><a href="register.html">New? Register here!</a></p>
+    </div>
+
 </body>
 </html>
