@@ -1,6 +1,6 @@
 <?php
 
-//include "db_conn.php";
+
 
 if(isset($_POST['uname']) && isset($_POST['password'])){
 
@@ -8,7 +8,7 @@ if(isset($_POST['uname']) && isset($_POST['password'])){
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
-        return data
+        return data;
     }
 }
 
@@ -23,6 +23,8 @@ else if(empty($pass)){
     header ("Location: index.html?erro=Password is required");
     exit();
 }
+
+
 
 
 
