@@ -22,6 +22,19 @@ div[class=log-form]{
     background-color: antiquewhite;
 }
 
+div[class=header]{
+    float: left;
+    text-align: center;
+    padding: 12px;
+    margin: auto;
+    align-content: center;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+    background-color: antiquewhite;
+}
+
 input[type=text], input[type=password]{
 
     width: 100%;
