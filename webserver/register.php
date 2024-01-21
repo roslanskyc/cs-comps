@@ -9,13 +9,13 @@
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
-            return data
+            return data;
         }
 
         
     }
     
-    $username = validate($_POST["user"])
+    $username = validate($_POST["user"]);
     $password = validate($_POST["pass"]);
 
 
