@@ -1,6 +1,5 @@
 <?php
 
-    //include "db_conn.php";
 
     $username = $password = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,11 +20,9 @@
 
 if(empty($username)){
     header ("Location: register.html?erro=Username is required");
-    exit();
 }
 else if(empty($pass)){
     header ("Location: register.html?erro=Password is required");
-    exit();
 }
 
 

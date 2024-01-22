@@ -13,3 +13,6 @@ Here's how I set up basic auth on my VM!
                 Require valid-user
         </Directory>
     - The directory can be whatever, this will contain the restricted files
+
+Move repo contents to the webserver in Ubuntu VM:
+sudo cp webserver/* /var/www/html
