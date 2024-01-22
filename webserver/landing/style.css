@@ -12,7 +12,13 @@ div[class=header]{
 }
 
 div[class="content"]{
+    padding: 100px;
     text-align: left;
     margin-bottom: auto;
     font-size: 18px;
+
+}
+
+body{
+    background-color: rgb(182, 243, 243);
 }
