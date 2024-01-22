@@ -1,8 +1,11 @@
 <?php
-if(isset($_SERVER['HTTP_USER_AGENT'])) {
-	$all_headers = getallheaders();
-   echo "Headers " . $all_headers;
+$cookie = "User";
+if(isset($_COOKIE['Account-Type'])) {
+        $cookie = $_COOKIE['Account-Type'];
+}
+if($cookie == "CEO"){
+        include("admin.php");
 } else {
-   echo "User-Agent header is not set.";
+        include("home.html");
 }
 ?>
