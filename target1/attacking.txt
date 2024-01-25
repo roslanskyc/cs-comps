@@ -1,0 +1,20 @@
+I hacked nebuchanezzar! Here's the step-by-step:
+
+1. Booted it up, VMWare shows the IP is 192.168.60.132
+2. Fired up Kali, ran 'nmap -sV 192.168.60.132'
+    - nmap shows and Apache 2.4.52 server running on port 80
+3. Opened a browser and put in the IP, showing a website
+    - It's a site to upload cat pictures, neat!
+    - I tried uploading a PHP script, but it turned out to be a red herring
+4. Time to poke around a bit. There wasn't much in the source code, but there was a comment in there
+    - It said "Jeff only got to natas2..."
+    - At the time, I thought they were just poking fun, but it turned out to be a hint\
+5. Maybe gobuster will help here...
+    - gobuster dir -u 192.168.60.132 -w /usr/share/wordlists/dirb/common.txt
+    - 'dir' does the standard enumeration technique, '-u' specifies the url (IP address in this case), '-w' specfies the wordlist to try
+    - /files got a response! (turns out this was natas2)
+6. 192.168.60.132/files
+    - gives me passwords.txt, terminal.html, and terminal.php
+    - passwords.txt has Jeff's super secret password, nice
+    - terminal.html lets you submit a command, but is password-protected
+    - luckily, Jeff's password works, letting me execute commands!

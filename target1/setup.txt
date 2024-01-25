@@ -20,7 +20,7 @@ Here are the steps we took to set up target 1!
     iv. They dig around, realizing that when they logged in, the query that was sent out included their credentials, and also a header called 'Account-Type'.
     v. "Maybe I'll log in again, but this time I'll edit this header to say 'admin' or 'ceo'" the attacker thinks to themselves.
     vi. Surprise! This time, instead of taking them to a landing page, they get a form that lets them execute arbitrary commands.
-6. First, we made the individual pages, and did some early research into Basic Auth
+6. First, we made the individual pages, and did some early research into Basic Auth (setting up .htpasswd)
 5. Our hope was that by using Basic Auth, we could avoid making our server vulnerable to directory traversal 
     i. Clearly, that didn't happen.
     ii. We wanted our login form to bypass it by putting the credentials in a header (in base64, the way basic auth does it)
