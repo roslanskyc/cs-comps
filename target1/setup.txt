@@ -1,0 +1,32 @@
+Here are the steps we took to set up target 1!
+
+----- Setting up the VM -----
+1. Get flash drive from Mike Tie
+2. Be a little bit sad because the flash drive was empty
+3. Download Ubuntu Desktop off the internet (https://ubuntu.com/download/desktop). For this, I downloaded 22.04.3
+4. With the Ubuntu Disc Image File, I could create a new virtual machine on VMWare using this installation.
+5. Oh no, my VM couldn't connect to the internet! Ariana did the same thing and got a working VM, so I copied hers and opened it. Now we're in business!
+
+----- Making it vulnerable -----
+1. First step was brainstorming. This took a bit as we had a lot of half-baked ideas that came with problems. We explored for a while on exploit-db, as well as on hackertricks.
+2. Eventually, we found something promising - hackertricks had a page on parameter pollution. This was an exploit dealing with the Gmail MFA one-time password. 
+    i. Someone tried to log in with another user's email, and edited the HTTP query before it was sent out so that it would generate a code for that email, but send it to the attacker's email.
+    ii. The attacker got an email with the code, typed it in, and was logged in as someone else. Way cool!
+3. We didn't think it was feasible to set up an email server in this way (on the time we had) but we liked the idea of editing your query to give yourself more access.
+4. The idea:
+    i. Make an apache webserver running on port 80.
+    ii. Have a login page, where people can also set up their own accounts.
+    iii. After logging in, they are brought to a landing page (password-protected with Basic auth), giving some hint to other users and roles.
+    iv. They dig around, realizing that when they logged in, the query that was sent out included their credentials, and also a header called 'Account-Type'.
+    v. "Maybe I'll log in again, but this time I'll edit this header to say 'admin' or 'ceo'" the attacker thinks to themselves.
+    vi. Surprise! This time, instead of taking them to a landing page, they get a form that lets them execute arbitrary commands.
+6. First, we made the individual pages, and did some early research into Basic Auth (setting up .htpasswd)
+5. Our hope was that by using Basic Auth, we could avoid making our server vulnerable to directory traversal 
+    i. Clearly, that didn't happen.
+    ii. We wanted our login form to bypass it by putting the credentials in a header (in base64, the way basic auth does it)
+    iii. This was super problematic, and it was Sunday night by the time we were starting to uncover things (and how complex they are)
+    iv. Running out of time, we kept it simple:
+7. No more Basic Auth. Everyone got to log in as Guest, for which the credentials were hard-coded.
+8. We also had issues making a header for account type that would last, so that became a cookie instead.
+9. The idea was still the same - people would have to edit this cookie on (or after) login and they'd be redirected to the CEO's secret web shell 
+10. Our mistake was not renaming this file, which was admin.php, to maybe avoid an easy directory traversal.

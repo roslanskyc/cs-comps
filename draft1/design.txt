@@ -1,0 +1,37 @@
+-----IDEAS FOR FINAL TARGET-----
+Cron job!!!
+That clicks on links, a phishing exploit
+AITM possibility for two internal machines
+Setuid
+Logging in as someone else on the web server, but as the first step
+Something related to authentication
+Email parameter pollution
+SQL injection/command injection
+Log poisoning
+Something with ssh/stealing private keys
+Certificate/public key fabrication
+Ex-employee credentials
+Linux vulnerability that allows write access to read-only files
+Dirty pipe
+Searchsploit 50808
+PASSWORD PROTECTED PAGES
+
+-----Vulnerable Machine Proposal-----
+1. Email server parameter pollution to log into someone else’s account
+    https://book.hacktricks.xyz/generic-methodologies-and-resources/tunneling-and-port-forwarding
+    How do we show potential accounts to log into?
+    Do we hard code the email sent with PHP or use a small email server?
+    https://www.courier.com/guides/php-send-email/?utm_term=&utm_campaign=&utm_source=adwords&utm_medium=ppc&hsa_acc=7687385231&hsa_cam=20653086645&hsa_grp=157606842234&hsa_ad=677115104074&hsa_src=g&hsa_tgt=dsa-19959388920&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAiA8NKtBhBtEiwAq5aX2IwJajehqjvZvEM3WVVnt0Zi9EfUN3b0DoG75xhjPHJRzEB1-olWjxoC5mQQAvD_BwE
+    Use 10-minute email
+    Hover over a name, give an email address
+2. Log poisoning! As an authenticated user, you can access the log file to execute a script and get a web shell
+3. Write hashed password to /etc/passwd, gain root access
+    Use a specific version of Ubuntu to have an exploitable Linux kernel for local privilege escalation (Dirty Pipe)
+    mkpasswd - give hash function
+    https://www.exploit-db.com/exploits/50808
+    https://www.geeksforgeeks.org/understanding-the-etc-passwd-file/
+
+Scenario
+A simple, straightforward calendar app you login to with email. 
+It’s a small company with one person in charge of IT and administration (busy calendar, too busy to think carefully about security), who makes their email available for tech support. 
+This person is so busy they forgot to update the server, leaving them susceptible to a nasty exploit (Dirty Pipe).
