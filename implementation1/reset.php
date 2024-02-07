@@ -6,6 +6,8 @@ use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php';
 
+require __DIR__ . '/vendor/autoload.php';
+
 function generate_6_digit_OTP() {
     $OTP = "";
     for($i = 1; $i <=6; $i++) {
@@ -16,6 +18,8 @@ function generate_6_digit_OTP() {
 	return $OTP;
 }
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/');
+$dotenv->load();
 
 $email = $_POST["email"];
 
@@ -41,6 +45,9 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	//Recipients
     $mail->setFrom('zereaux.day@gmail.com', 'Zereaux Day');
     $mail->addAddress($email);
+
+    $mail->Username = env('EMAIL_USERNAME');
+    $mail->Password = env('EMAIL_PASSWORD');
 
     //Attachments
     // $mail->addAttachment('/tmp/image.jpg', 'new.jpg'); 	  //Add attachments
