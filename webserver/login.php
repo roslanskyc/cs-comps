@@ -9,6 +9,6 @@ if($_POST['username'] == "CEO"){
     setcookie("Account-Type", "User");
 }
 
-header("Location:" . "landing/land.php");
+header("Location:" . "land.php");
 
 ?>
