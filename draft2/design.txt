@@ -1,0 +1,29 @@
+------DRAFT 2: THE MIGRAINES-----
+Devin Lewis, Ariana Borlak, Charlie Roslansky
+
+-----Abstract-----
+Our company is Zereaux Day, a simple calendar app with a login page that allows for password reset, which is vulnerable to email parameter pollution. 
+The log file is accessible to an authenticated account and executes any PHP code. 
+The server also runs on an outdated Linux kernel version, which is vulnerable to DirtyPipe.
+
+
+-----Step-by-step walkthrough-----
+- Reset password and intercept with Burpsuite to change where the reset link is sent
+    - What you get: account login
+- Use Burpsuite to inject PHP code into the log file and navigate to it to execute the code
+    - What you get: a reverse shell as www-data
+- (Potential step if we have time to implement) Find a file containing hashed passwords and crack them
+    - What you get: A user with write-permissions
+- Clone and run the Dirty Pipe exploit (if you are crazy, write an exploit yourself)
+    - What you get: root login
+
+-----Current implementation status-----
+At the moment, we have a barebones web server that lets anyone do log poisoning (the current log file is a .php - we should probably figure out how to execute PHP code in arbitrary files). 
+We also have the 5.15.5 Linux kernel installed on Ubuntu, allowing for the Dirty Pipe exploit.
+We have started working on sending reset emails but are still debugging. We do not yet have password-protected pages or functionality to reset passwords, but have done some trial and error with it so far.
+
+-----Deep-dive topics-----
+- Dirty Pipe: we will all try to understand it to whatever degree we can, but it is complicated
+- Email servers/parameter pollution: Ariana
+- Log files/Log poisoning: Devin
+- Authentication (Apache modules and built from scratch): Charlie
