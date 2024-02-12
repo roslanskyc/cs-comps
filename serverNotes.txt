@@ -16,3 +16,13 @@ Here's how I set up basic auth on my VM!
 
 Move repo contents to the webserver in Ubuntu VM:
 sudo cp webserver/* /var/www/html
+
+
+2/7/2024 - Implementation1
+- Barebones web server that includes access logs as a php file (incredibly stupid and unrealistic)
+    - this was done by editing /etc/apache2/sites-available/000-default.conf
+    - The CustomLog line was edited to `CustomLog /var/www/html/home/access.php combined`, so now logs are being saved to that filepath.
+
+- Running on Ubuntu VM with outdated kernel vulnerable to dirtypipe (also not a great idea)
+    - Once log poisoning is done to get a reverse shell, www-data can create a directory under /tmp/, clone a git repo of a known exploit for DirtyPipe, and get root access.
+    
