@@ -1,5 +1,9 @@
 h2{
-    text-align: center;
+  text-align: center;
+}
+
+h3{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 button{
@@ -45,15 +49,29 @@ div[class=log-form]{
     background-color: rgb(255, 255, 255);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-decoration: none;
-    text-decoration-color: rgb(1,1,1);
+}
+
+.infobx{
+  background-origin: padding-box;
+  border: #595c5b;
+  border-style: solid;
+  background-color: antiquewhite;
+  width: 25%;
+  text-align: center;
 }
 
 .buttonlink{
   text-decoration: none;
+  color: rgb(24, 95, 166);
 }
 
 .header a:hover, .navigate{
     background-color: rgb(106, 21, 154);
+    color:#666;
+}
+
+.header a:visited, .navigate{
+  color: rgb(202, 181, 215);
 }
 
 input[type=text], input[type=password]{
