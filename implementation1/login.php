@@ -20,6 +20,4 @@ if($rows == 1){
 <br/>Click here to <a href='index.html'>Login</a></div>";
 }
 
-
-
 ?>
