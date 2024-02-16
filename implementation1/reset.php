@@ -6,10 +6,11 @@ use PHPMailer\PHPMailer\Exception;
 
 // include '/Desktop/cs-comps/.env';
 
-require_once realpath(__DIR__ . '/vendor/autoload.php');
+// require_once realpath(__DIR__ . '/vendor/autoload.php');
+require 'vendor/autoload.php';
 
 $db = pg_connect("host=localhost dbname=auth user=postgres password=postgres");
-if ($db) {echo "connected";}
+// if ($db) {echo "connected";}
 
 function generate_6_digit_OTP($db) {
 	$unique = false;
@@ -23,9 +24,9 @@ function generate_6_digit_OTP($db) {
 		echo $OTP;
 		echo "we're good";
 		//verifies if OTP has already been used
-		$result = pg_query_params($db, "SELECT * FROM otp WHERE code = $1", array($OTP));
-		$rows = pg_num_rows($result);
-		echo $rows;
+		// $result = pg_query_params($db, "SELECT * FROM otp WHERE code = $1", array($OTP));
+		// $rows = pg_num_rows($result);
+		// echo $rows;
 		if ($rows == 0) {$unique = true;}
 	}
 	$OTP = (int)$OTP;
@@ -75,7 +76,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     // echo 'Message has been sent';
 
 	//need to change this for parameter pollution
-	$insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($OTP, $email));
+	// $insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($OTP, $email));
 
 	header("Location:" . "reset_code.html");
 

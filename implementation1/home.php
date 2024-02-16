@@ -1,5 +1,9 @@
 <?php
 
-echo $_SESSION['username'];
+if($_SESSION['username'] == "cjr"){
+    echo "yay";
+} else {
+    echo ":(";
+}
 
 ?>
