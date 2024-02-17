@@ -15,7 +15,7 @@ email VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE otp (
-	code SMALLINT UNIQUE,
+	code INT UNIQUE,
 	account VARCHAR(100)
 );
 

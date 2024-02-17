@@ -22,7 +22,7 @@ function generate_6_digit_OTP($db) {
             $OTP .= $str;
     	}
 		echo $OTP;
-		echo "we're good";
+		echo "we're good\n";
 		//verifies if OTP has already been used
 		// $result = pg_query_params($db, "SELECT * FROM otp WHERE code = $1", array($OTP));
 		// $rows = pg_num_rows($result);
@@ -30,6 +30,7 @@ function generate_6_digit_OTP($db) {
 		if ($rows == 0) {$unique = true;}
 	}
 	$OTP = (int)$OTP;
+	echo "I have the OTP\n";
 	return $OTP;
 }
 
@@ -73,12 +74,12 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $mail->Body = "Your one-time password reset code is:\n$reset_code";
 
     $mail->send();
-    // echo 'Message has been sent';
+    echo 'Message has been sent';
 
 	//need to change this for parameter pollution
-	// $insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($OTP, $email));
+	$insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($reset_code, $email));
 
-	header("Location:" . "reset_code.html");
+	header("Location:" . "reset_code.php");
 
 	} catch (Exception $e) {
     	echo "Message could not be sent.";
