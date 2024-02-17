@@ -7,10 +7,9 @@ $reset_code = $_POST["reset_code"];
 $email = pg_query_params($db, "SELECT account FROM otp WHERE code = $1", array($reset_code));
 $rows = pg_num_rows($email);
 
-$type = gettype(email);
-echo $type;
+$type = gettype($email);
 
-if (rows==1) {
+if ($rows == 1) {
 	// set session cookie saying can reset password
 	header("Location:" . "newpass.html");
 } else {
