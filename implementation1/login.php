@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $user = $_POST['username'];
 $pass = hash('sha256', $_POST['pass']);
 $db = pg_connect("host=localhost dbname=auth user=postgres password=postgres");
@@ -10,7 +10,7 @@ $result = pg_query_params($db, "SELECT * FROM credentials WHERE username = $1 AN
 $rows = pg_num_rows($result);
 
 if($rows == 1){
-    $_SESSION['username'] = $username;
+    $_SESSION['username'] = $user;
     header("Location: home.php");
     exit();
 

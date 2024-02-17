@@ -1,5 +1,10 @@
 <?php
-
-echo $_SESSION['username'];
+session_start();
+if($_SESSION['username'] == "cjr"){
+    echo "yay";
+} else {
+    echo ":(";
+    echo $_SESSION['username'];
+}
 
 ?>
