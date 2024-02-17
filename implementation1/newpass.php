@@ -1,6 +1,13 @@
 <?php
     session_start();
     
+    if($_SESSION['canRestart'] != 'T'){
+        header("Location: login.php");
+        exit();
+    }
+
+    $_SESSION['canRestart'] = 'F';
+
     $user = $_SESSION['username'];
     $pass = hash('sha256', $_POST['pass']);
     $db = pg_connect("host=localhost dbname=auth user=postgres password=postgres");

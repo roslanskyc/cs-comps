@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $db = pg_connect("host=localhost dbname=auth user=postgres password=postgres");
 
 $reset_code = $_POST["reset_code"];
@@ -11,8 +11,9 @@ $type = gettype($email);
 
 if ($rows == 1) {
 	// set session cookie saying can reset password
-	header("Location:" . "newpass.html");
+    $_SESSION['canRestart'] = 'T';
+	header("Location: newpass.html");
 } else {
-	header("Location:" . "reset_code.html");
+	header("Location: reset_code.html");
 }
 ?>
