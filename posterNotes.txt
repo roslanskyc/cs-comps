@@ -1,5 +1,5 @@
 Less space for "what is pentesting"/background - keep it to talking
-Work for broad audience - maybe aim for CS 201 students, leave hooks for more technical discussion
+Work for broad audience - maybe aim for CS 201 students + a couple core courses, leave hooks for more technical discussion
 could order boxes with numbers
 maybe don't need company box - could be shown with screenshots of site
 focus on good diagram
@@ -12,3 +12,5 @@ Title:
 Developers hate these 3 tricks!
 dim: 3' x 4'
 
+references: one qr code for all references
+link to a github?
