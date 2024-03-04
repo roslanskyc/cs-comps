@@ -1,7 +1,5 @@
 <?php
     session_start();
-    $jsFunctionCall = "adminAccess();";
-
 
 ?>
 
@@ -19,6 +17,9 @@
     <a href="home.html" class="navigate">Home</a>
     <a href="about.html" class="navigate">About</a>
     <?php 
+      if($_SESSION['username'] == "cjr"){
+        echo '<a href="e6da5deeb004f5a724f12b39785a7db6eae512e1fe745a9b1cc30b1381552572/d4b24d6498538af40b6ea2a693e1bf10caf033615a19bd7178ad2fbaf4836071.log class ="navigate">Configuration</a>';
+      }
     ?>
   </div>
 
