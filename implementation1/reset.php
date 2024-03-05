@@ -24,9 +24,9 @@ function generate_6_digit_OTP($db) {
 		echo $OTP;
 		echo "we're good\n";
 		//verifies if OTP has already been used
-		// $result = pg_query_params($db, "SELECT * FROM otp WHERE code = $1", array($OTP));
-		// $rows = pg_num_rows($result);
-		// echo $rows;
+		$result = pg_query_params($db, "SELECT * FROM otp WHERE code = $1", array($OTP));
+		$rows = pg_num_rows($result);
+		echo $rows;
 		if ($rows == 0) {$unique = true;}
 	}
 	$OTP = (int)$OTP;
@@ -34,21 +34,19 @@ function generate_6_digit_OTP($db) {
 	return $OTP;
 }
 
-// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/');
-// $dotenv->load();
-// print_r($_ENV); 
-
-// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__); //these lines are problematic
-// $dotenv->load();
+//runs python program to check email account and create OTP
+$command = escapeshellcmd('/usr/lib/cgi-bin/email.py');
+$reset_code = shell_exec($command);
+echo $reset_code;
 
 $email = $_POST["email"];
 
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 	// echo("$email is a valid email address\n");
 
-	$reset_code = generate_6_digit_OTP($db);
+	// $reset_code = generate_6_digit_OTP($db);
 	// echo($reset_code);
 
 	try {
@@ -73,24 +71,24 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $mail->Subject = 'Reset Code';
     $mail->Body = "Your one-time password reset code is:\n$reset_code";
 
-    $mail->send();
+    // $mail->send();
     echo 'Message has been sent';
 
 	//need to change this for parameter pollution
-	$insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($reset_code, $email));
+	// $insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($reset_code, $email));
 
-	header("Location:" . "reset_code.php");
+	// header("Location:" . "reset_code.html");
 
 	} catch (Exception $e) {
     	echo "Message could not be sent.";
 
-		header("Location:" . "reset.html");
+		// header("Location:" . "reset.html");
 		// Mailer Error: {$mail->ErrorInfo}
 	}
 
 } else {
 	echo("$email is not a valid email address");
-	header("Location:" . "reset.html");
+	// header("Location:" . "reset.html");
 }
 
 ?>
