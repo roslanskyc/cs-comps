@@ -33,6 +33,9 @@ How to get Apache to execute PHP on any file:
         <FilesMatch "\.[a-zA-Z0-9]+$">
             SetHandler application/x-httpd-php
         </FilesMatch>
+        <FilesMatch "\.css">
+            SetHandler default-handler # This is so that the css runs as static css
+        </FilesMatch>
     - sudo service apache2 restart
 
 Get reverse shell:
