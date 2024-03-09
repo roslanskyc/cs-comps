@@ -1,26 +1,79 @@
-<?php 
-session_start();
+<?php
+    session_start();
+
 ?>
 
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-    <div class="log-form">
-        <form action="login.php" method="post">
-            <h2>Log In Here!</h2>
-            <label>Username</label>
-            <input type="text" name="username" placeholder="Username" />
-            <label>Password</label>
-            <input type="password" name="pass" placeholder="Password" />
-            <button type="submit" class="button">Login</button>
-            <button type="submit" class="button"><a href="reset.html" class="buttonlink">Forgot Password?</a></button>
-        </form>
 
-    </div>
+<head>
+  <title>Home page</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+  <div class="header" id="head56">
+    <h1>Welcome to Zereaux Day!</h1>
+    <a href="home.html" class="navigate">Home</a>
+    <a href="about.html" class="navigate">About</a>
+    <a href="login.html" class="navigate">Login</a>
+    <?php 
+      if($_SESSION['username'] == "cjr"){
+        echo '<a href="e6da5deeb004f5a724f12b39785a7db6eae512e1fe745a9b1cc30b1381552572/d4b24d6498538af40b6ea2a693e1bf10caf033615a19bd7178ad2fbaf4836071.log" class ="navigate">Log</a>';
+      }
+    ?>
+  </div>
+
+
+  <div class="month">
+    <ul>
+      <li class="prev"><</li>
+      <li class="next">></li>
+      <li>February<br><span style="font-size:18px">2024</span></li>
+    </ul>
+  </div>
+
+  <ul class="weekdays">
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li>
+    <li>Su</li>
+  </ul>
+
+  <ul class="days">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+    <li>10</li>
+    <li>11</li>
+    <li>12</li>
+    <li>13</li>
+    <li>14</li>
+    <li>15</li>
+    <li>16</li>
+    <li>17</li>
+    <li>18</li>
+    <li>19</li>
+    <li>20</li>
+    <li>21</li>
+    <li>22</li>
+    <li>23</li>
+    <li>24</li>
+    <li>25</li>
+    <li>26</li>
+    <li>27</li>
+    <li>28</li>
+    <li><span class="active">29</span></li>
+
+  </ul>
 
 </body>
-</html>
