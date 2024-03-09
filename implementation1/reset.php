@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\Exception;
 // require_once realpath(__DIR__ . '/vendor/autoload.php');
 require 'vendor/autoload.php';
 
-$db = pg_connect("host=localhost dbname=auth user=postgres password=postgres");
+
 // if ($db) {echo "connected";}
 
 function generate_6_digit_OTP($db) {
@@ -35,13 +35,23 @@ function generate_6_digit_OTP($db) {
 }
 
 //runs python program to check email account and create OTP
-$command = escapeshellcmd('/usr/lib/cgi-bin/email.py');
-$reset_code = shell_exec($command);
-echo $reset_code;
+$command = escapeshellcmd('/usr/lib/cgi-bin/env/bin/python3 /usr/lib/cgi-bin/env/app.py');
+// c:\location\of\greetings\env\bin\python.exe greetings.py
+// echo $reset_code;
 
 $email = $_POST["email"];
 
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+$reset_code = 0;
+$temp = pg_query_params($db, "SELECT code FROM otp WHERE account = $1", array($email));
+$temporary = pg_fetch_all($temp);
+// $reset_code = pg_fetch_result($temp, 0, "code");
+// print_r($temporary);
+$reset_code = $temporary[0]["code"];
+echo $reset_code;
+// echo $reset_code["code"];
+//Array ( [0] => Array ( [code] => 123455 ) ) 
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 	// echo("$email is a valid email address\n");
@@ -66,6 +76,8 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 	// $mail->Username = $_ENV['EMAIL_USERNAME'];
 	// $mail->Password = $_ENV['EMAIL_PASSWORD'];
 
+	
+
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Reset Code';
@@ -82,13 +94,13 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 	} catch (Exception $e) {
     	echo "Message could not be sent.";
 
-		// header("Location:" . "reset.html");
+		header("Location:" . "reset.html");
 		// Mailer Error: {$mail->ErrorInfo}
 	}
 
 } else {
 	echo("$email is not a valid email address");
-	// header("Location:" . "reset.html");
+	header("Location:" . "reset.html");
 }
 
 ?>

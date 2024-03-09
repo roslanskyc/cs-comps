@@ -1,17 +1,15 @@
 #!/usr/bin/python3
 # print('Content-type: text/html')
 
-import cgi
 import random
 import psycopg2
-
-print(cgi.__file__)
 
 def connect():
     """Connect to the PostgreSQL database server"""
     try:
         # connecting to the PostgreSQL server
         conn = psycopg2.connect(
+            host="localhost", database="auth", user="postgres", password="postgres"
         )
         return conn
     except (psycopg2.DatabaseError, Exception) as error:
@@ -34,17 +32,19 @@ def generate_6_digit_OTP(cur):
             unique = True
     return int(OTP)
 
-# form = cgi.FieldStorage()
-# email = form.getvalue("email")
+if __name__== "__main__":
+    # form = cgi.FieldStorage()
+    # email = form.getvalue("email")
 
-# conn = connect()
-# cur = conn.cursor()
+    # conn = connect()
+    # cur = conn.cursor()
 
-# OTP = generate_6_digit_OTP(cur)
+    # OTP = generate_6_digit_OTP(cur)
 
-# cur.execute("INSERT INTO otp (code, account) VALUES ($1, $2)", (OTP, email))
-# if cur:
-#     cur.close()
-# if conn:
-#     conn.close()
-# print(OTP)
+    # cur.execute("INSERT INTO otp (code, account) VALUES ($1, $2)", (OTP, email))
+    # if cur:
+    #     cur.close()
+    # if conn:
+    #     conn.close()
+    # print(OTP)
+    print("hi")
