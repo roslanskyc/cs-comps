@@ -11,7 +11,7 @@ $rows = pg_num_rows($result);
 
 if($rows == 1){
     $_SESSION['username'] = $user;
-    header("Location: home.php");
+    header("Location: index.html");
     exit();
 
 } else {
