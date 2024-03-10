@@ -9,6 +9,8 @@ $rows = pg_num_rows($email);
 
 $type = gettype($email);
 
+pg_query_params($db, "DELETE FROM otp WHERE code =$1", array($reset_code));
+
 if ($rows == 1) {
 	// set session cookie saying can reset password
     $_SESSION['canRestart'] = 'T';
