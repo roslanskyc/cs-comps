@@ -67,7 +67,9 @@ if __name__ == "__main__":
         OTP = generate_6_digit_OTP(cur)
         print(OTP)
 
-        email = request.form.get("email")
+        # email = request.form.get("email")
+        email = request.form["email"]
+        print(type(email))
         print(email)
 
         # NEED TO CHECK IF EMAIL IS ALREADY IN DATABASE, IF IT IS DELETE IT

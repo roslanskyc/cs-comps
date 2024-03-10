@@ -34,24 +34,24 @@ function generate_6_digit_OTP($db) {
 	return $OTP;
 }
 
+// $params = implode("", $_POST);
+// echo var_dump($_POST);
+$post = file_get_contents('php://input');
+echo $post;
+
 //runs python program to check email account and create OTP
-$command = escapeshellcmd('/usr/lib/cgi-bin/env/bin/python3 /usr/lib/cgi-bin/env/app.py');
-// c:\location\of\greetings\env\bin\python.exe greetings.py
-// echo $reset_code;
+$command = escapeshellcmd('/usr/bin/python3 /usr/lib/cgi-bin/email.py ' .$post);
+shell_exec($command);
 
 $email = $_POST["email"];
-
-$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
 $reset_code = 0;
 $temp = pg_query_params($db, "SELECT code FROM otp WHERE account = $1", array($email));
 $temporary = pg_fetch_all($temp);
-// $reset_code = pg_fetch_result($temp, 0, "code");
-// print_r($temporary);
 $reset_code = $temporary[0]["code"];
 echo $reset_code;
-// echo $reset_code["code"];
-//Array ( [0] => Array ( [code] => 123455 ) ) 
+
+$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 	// echo("$email is a valid email address\n");
@@ -72,6 +72,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 	//Recipients
     $mail->setFrom('borlaka@carleton.edu', 'Zero Day');
     $mail->addAddress($email);
+	echo $email;
 
 	// $mail->Username = $_ENV['EMAIL_USERNAME'];
 	// $mail->Password = $_ENV['EMAIL_PASSWORD'];
@@ -83,13 +84,13 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
     $mail->Subject = 'Reset Code';
     $mail->Body = "Your one-time password reset code is:\n$reset_code";
 
-    // $mail->send();
+    $mail->send();
     echo 'Message has been sent';
 
 	//need to change this for parameter pollution
 	// $insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($reset_code, $email));
 
-	// header("Location:" . "reset_code.html");
+	header("Location:" . "reset_code.html");
 
 	} catch (Exception $e) {
     	echo "Message could not be sent.";
