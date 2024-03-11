@@ -51,17 +51,10 @@ if __name__== "__main__":
 
     print(email)
 
-
-    # email = ""
-    # if len(sys.argv) >= 2:
-    #     email = sys.argv[1]
-
     conn = connect()
     cur = conn.cursor()
 
     OTP = generate_6_digit_OTP(cur)
-
-    # email = POST.get("email")
 
     cur.execute("DELETE FROM otp WHERE account=%s", [email])
 

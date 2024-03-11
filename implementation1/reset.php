@@ -4,13 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// include '/Desktop/cs-comps/.env';
-
-// require_once realpath(__DIR__ . '/vendor/autoload.php');
 require 'vendor/autoload.php';
 
 
-// if ($db) {echo "connected";}
 
 function generate_6_digit_OTP($db) {
 	$unique = false;
@@ -34,8 +30,6 @@ function generate_6_digit_OTP($db) {
 	return $OTP;
 }
 
-// $params = implode("", $_POST);
-// echo var_dump($_POST);
 $post = file_get_contents('php://input');
 echo $post;
 
@@ -54,18 +48,14 @@ echo $reset_code;
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
-	// echo("$email is a valid email address\n");
-
-	// $reset_code = generate_6_digit_OTP($db);
-	// echo($reset_code);
 
 	try {
 	//Server settings
 	$mail = new PHPMailer(true);
-    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;             //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host = 'smtp-pulse.com';                     //Set the SMTP server to send through
-    $mail->Port = 587;									//465 TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+    $mail->Port = 587;									//465 TCP port to connect to;
 	$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //ENCRYPTION_SMTPS ENCRYPTION_STARTTLS Enable implicit TLS encryption
 	$mail->SMTPAuth = true;                                   //Enable SMTP authentication
 
@@ -73,10 +63,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
     $mail->setFrom('borlaka@carleton.edu', 'Zero Day');
     $mail->addAddress($email);
 	echo $email;
-
-	// $mail->Username = $_ENV['EMAIL_USERNAME'];
-	// $mail->Password = $_ENV['EMAIL_PASSWORD'];
-
 	
 
     //Content
@@ -88,7 +74,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
     echo 'Message has been sent';
 
 	//need to change this for parameter pollution
-	// $insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($reset_code, $email));
+	
 
 	header("Location:" . "reset_code.html");
 
@@ -96,7 +82,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
     	echo "Message could not be sent.";
 
 		header("Location:" . "reset.html");
-		// Mailer Error: {$mail->ErrorInfo}
 	}
 
 } else {
