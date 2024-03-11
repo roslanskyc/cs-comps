@@ -4,61 +4,28 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// include '/Desktop/cs-comps/.env';
-
-// require_once realpath(__DIR__ . '/vendor/autoload.php');
 require 'vendor/autoload.php';
 
 
-// if ($db) {echo "connected";}
 
-function generate_6_digit_OTP($db) {
-	$unique = false;
-	while ($unique != true) {
-		$OTP = "";
-		for($i = 1; $i <=6; $i++) {
-            $int = rand(0,9);
-            $str = "$int";
-            $OTP .= $str;
-    	}
-		echo $OTP;
-		echo "we're good\n";
-		//verifies if OTP has already been used
-		$result = pg_query_params($db, "SELECT * FROM otp WHERE code = $1", array($OTP));
-		$rows = pg_num_rows($result);
-		echo $rows;
-		if ($rows == 0) {$unique = true;}
-	}
-	$OTP = (int)$OTP;
-	echo "I have the OTP\n";
-	return $OTP;
-}
-
-// $params = implode("", $_POST);
-// echo var_dump($_POST);
 $post = file_get_contents('php://input');
-echo $post;
 
 //runs python program to check email account and create OTP
 $command = escapeshellcmd('/usr/bin/python3 /usr/lib/cgi-bin/email.py ' .$post);
-shell_exec($command);
+$output = shell_exec($command);
 
 $email = $_POST["email"];
 
 $reset_code = 0;
-$temp = pg_query_params($db, "SELECT code FROM otp WHERE account = $1", array($email));
+$temp = pg_query_params($db, "SELECT code FROM otp WHERE account = $1", array($output));
 $temporary = pg_fetch_all($temp);
-$reset_code = $temporary[0]["code"];
+
+$reset_code = $temporary[0]['code'];
 echo $reset_code;
 
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
-	// echo("$email is a valid email address\n");
-
-	// $reset_code = generate_6_digit_OTP($db);
-	// echo($reset_code);
-
+if ($email && $reset_code != 0) {
 	try {
 	//Server settings
 	$mail = new PHPMailer(true);
@@ -72,10 +39,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 	//Recipients
     $mail->setFrom('borlaka@carleton.edu', 'Zero Day');
     $mail->addAddress($email);
-	echo $email;
-
-	// $mail->Username = $_ENV['EMAIL_USERNAME'];
-	// $mail->Password = $_ENV['EMAIL_PASSWORD'];
 
 	
 
@@ -86,9 +49,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && $reset_code != 0) {
 
     $mail->send();
     echo 'Message has been sent';
-
-	//need to change this for parameter pollution
-	// $insert = pg_query_params($db, "INSERT INTO otp (code, account) VALUES ($1, $2)", array($reset_code, $email));
 
 	header("Location:" . "reset_code.html");
 
