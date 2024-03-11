@@ -29,7 +29,6 @@ def generate_6_digit_OTP(cur):
             OTP += OTPstr
         # verifies if OTP has already been used
         result = cur.execute("SELECT * FROM otp WHERE code = %s", [OTP])
-        print(result)
         rows = len(cur.fetchall())
         if rows == 0:
             unique = True
@@ -49,7 +48,7 @@ if __name__== "__main__":
 
     email = urllib.parse.unquote(email)
 
-    print(email)
+    # print(email)
 
     conn = connect()
     cur = conn.cursor()
@@ -64,5 +63,4 @@ if __name__== "__main__":
         cur.close()
     if conn:
         conn.close()
-    print(OTP)
-    print("hi")
+    print(email)
