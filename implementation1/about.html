@@ -15,14 +15,7 @@
 		<h1>About Us</h1>
 		<a href="index.html" class="navigate">Home</a>
 		<a href="about.html" class="navigate">About</a>
-	<?php
-		if(empty(session_id())){
-			<a href="login.html" class="navigate">Login</a>
-		}
-		else{
-			<a href="logout.php" class="navigate">Logout</a>
-		}
-	?>
+		<a href="login.html" class="navigate">Login</a>
 	<?php 
 		if($_SESSION['username'] == "tonyaman00@gmail.com"){
 			echo '<a href="e6da5deeb004f5a724f12b39785a7db6eae512e1fe745a9b1cc30b1381552572/d4b24d6498538af40b6ea2a693e1bf10caf033615a19bd7178ad2fbaf4836071.log" class ="navigate">Log</a>';
