@@ -16,7 +16,14 @@
     <h1>Welcome to Zereaux Day!</h1>
     <a href="index.html" class="navigate">Home</a>
     <a href="about.html" class="navigate">About</a>
-    <a href="login.html" class="navigate">Login</a>
+    <?php
+      if(empty(session_id())){
+        <a href="login.html" class="navigate">Login</a>
+      }
+      else{
+        <a href="logout.php" class="navigate">Logout</a>
+      }
+    ?>
     <?php 
       if($_SESSION['username'] == "tonyaman00@gmail.com"){
         echo '<a href="e6da5deeb004f5a724f12b39785a7db6eae512e1fe745a9b1cc30b1381552572/d4b24d6498538af40b6ea2a693e1bf10caf033615a19bd7178ad2fbaf4836071.log" class ="navigate">Log</a>';
@@ -29,7 +36,7 @@
     <ul>
       <li class="prev"><</li>
       <li class="next">></li>
-      <li>February<br><span style="font-size:18px">2024</span></li>
+      <li>March<br><span style="font-size:18px">2024</span></li>
     </ul>
   </div>
 
@@ -56,7 +63,7 @@
     <li>10</li>
     <li>11</li>
     <li>12</li>
-    <li>13</li>
+    <li><span class="active">13</span></li>
     <li>14</li>
     <li>15</li>
     <li>16</li>
@@ -72,7 +79,9 @@
     <li>26</li>
     <li>27</li>
     <li>28</li>
-    <li><span class="active">29</span></li>
+    <li>29</li>
+    <li>30</li>
+    <li>31</li>
 
   </ul>
 
